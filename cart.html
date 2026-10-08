@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart & Checkout — AA Leathers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="account-menu" id="accountMenu">
+      <button class="nav-user" id="accountToggle"><span id="accountLabel">Account</span> <span class="nav-user-label">▾</span></button>
+      <div class="account-dropdown" id="accountDropdown">
+        <a href="login.html">Login / Sign Up</a>
+        <a href="user-profile.html">My Account</a>
+      </div>
+    </div>
+    <a href="cart.html" class="nav-cart">🛍 Cart <span class="cart-badge" data-cart-count>0</span></a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div style="padding-top:80px">
+
+  <!-- ═══ CART VIEW ═══ -->
+  <div id="cartView" class="cart-page-wrap">
+    <h1 class="page-title">Your Cart</h1>
+    <div id="cartContent"></div>
+  </div>
+
+  <!-- ═══ CHECKOUT VIEW ═══ -->
+  <div id="checkoutView" class="co-wrap" style="display:none">
+    <h1 class="co-title">Checkout</h1>
+    <div class="co-steps">
+      <div class="co-step" id="step1Tab">1. Delivery Details</div>
+      <div class="co-step" id="step2Tab">2. Payment</div>
+      <div class="co-step" id="step3Tab">3. Review &amp; Place Order</div>
+    </div>
+    <div class="co-grid">
+      <div class="co-main">
+
+        <!-- Step 1: Delivery -->
+        <div class="co-panel" id="panelDelivery">
+          <div class="co-section">
+            <div class="co-sec-lbl">Contact &amp; Delivery Details</div>
+            <div class="co-grid2" style="margin-bottom:1rem">
+              <div class="f-grp"><label class="f-lbl">Full Name</label><input class="f-inp" id="custName" placeholder="e.g. Ali Raza"></div>
+              <div class="f-grp"><label class="f-lbl">Phone Number</label><input class="f-inp" id="custPhone" placeholder="03xx-xxxxxxx"></div>
+            </div>
+            <div class="f-grp" style="margin-bottom:1rem">
+              <label class="f-lbl">Delivery Address</label>
+              <textarea class="f-inp" id="custAddress" placeholder="House #, Street, Area, City"></textarea>
+            </div>
+            <div class="f-grp">
+              <label class="f-lbl">Delivery Region</label>
+              <select class="co-select" id="custRegion"></select>
+            </div>
+          </div>
+          <button class="co-next-btn" onclick="goToStep(2)">Continue to Payment</button>
+        </div>
+
+        <!-- Step 2: Payment -->
+        <div class="co-panel" id="panelPayment">
+          <div class="co-section">
+            <div class="co-sec-lbl">Select Payment Method</div>
+            <div class="pay-opt" data-method="COD" onclick="selectPayment('COD')">
+              <div class="pay-radio" id="radio-COD"></div>
+              <div><div class="pay-name">Cash on Delivery</div><div class="pay-sub">Pay in cash when your order arrives</div></div>
+            </div>
+            <div class="pay-opt" data-method="JazzCash" onclick="selectPayment('JazzCash')">
+              <div class="pay-radio" id="radio-JazzCash"></div>
+              <div><div class="pay-name">JazzCash</div><div class="pay-sub">Manual transfer, verified by our team</div></div>
+            </div>
+            <div class="pay-opt" data-method="Easypaisa" onclick="selectPayment('Easypaisa')">
+              <div class="pay-radio" id="radio-Easypaisa"></div>
+              <div><div class="pay-name">Easypaisa</div><div class="pay-sub">Manual transfer, verified by our team</div></div>
+            </div>
+
+            <div id="manualPayBox" style="display:none;margin-top:1.5rem;border-top:1px solid rgba(201,168,76,0.12);padding-top:1.5rem">
+              <p class="section-note">Send the total amount to the account below, then upload a screenshot as proof. Your order will show as <strong>Pending</strong> until our admin verifies the payment.</p>
+              <p class="section-note">Account Title: <strong>AA Leathers</strong> &nbsp;|&nbsp; Account Number: <strong id="payAccountNumber">03xx-xxxxxxx</strong></p>
+              <div class="f-grp">
+                <label class="f-lbl">Upload Payment Screenshot</label>
+                <input class="f-inp" type="file" id="paymentProof" accept="image/*">
+                <div class="f-hint" id="proofFileName"></div>
+              </div>
+            </div>
+          </div>
+          <button class="co-back-lnk" onclick="goToStep(1)">← Back</button>
+          <button class="co-next-btn" onclick="goToStep(3)">Continue to Review</button>
+        </div>
+
+        <!-- Step 3: Review -->
+        <div class="co-panel" id="panelReview">
+          <div class="co-section">
+            <div class="co-sec-lbl">Review Your Order</div>
+            <div id="reviewSummary"></div>
+          </div>
+          <button class="co-back-lnk" onclick="goToStep(2)">← Back</button>
+          <button class="co-place-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+
+      </div>
+      <div class="co-sidebar">
+        <div class="co-sum">
+          <div class="co-sum-title">Order Summary</div>
+          <div id="coSumItems"></div>
+          <hr class="co-sum-divider">
+          <div class="co-sum-item"><div class="co-sum-iname">Subtotal</div><div class="co-sum-iprice" id="coSubtotal">Rs. 0</div></div>
+          <div class="co-sum-item"><div class="co-sum-iname">Delivery</div><div class="co-sum-iprice" id="coDelivery">Rs. 0</div></div>
+          <hr class="co-sum-divider">
+          <div class="co-sum-total"><div class="co-sum-tlbl">Total</div><div class="co-sum-tval" id="coTotal">Rs. 0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CONFIRMATION VIEW ═══ -->
+  <div id="confirmView" class="co-wrap" style="display:none">
+    <div class="order-confirm-wrap">
+      <div class="oc-icon">✓</div>
+      <div class="oc-title">Order Confirmed</div>
+      <div class="oc-num" id="confirmOrderId">Order ID: —</div>
+      <p class="oc-msg" id="confirmMsg">Thank you for your order. You can track its status anytime from My Account.</p>
+      <a href="user-profile.html" class="btn-gold" style="text-decoration:none;display:inline-block;margin-right:1rem">Track Order</a>
+      <a href="products.html" class="btn-outline" style="text-decoration:none;display:inline-block">Continue Shopping</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+      <p>Premium leather wallets, crafted for everyday carry. Based in Sahiwal, Pakistan.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul>
+      <li><a href="products.html">All Wallets</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Account</h4><ul>
+      <li><a href="login.html">Login / Sign Up</a></li>
+      <li><a href="user-profile.html">Track Order</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 <span>AA Leathers</span>. All rights reserved.</div>
+    <div class="footer-copy">Cash on Delivery · JazzCash · Easypaisa</div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

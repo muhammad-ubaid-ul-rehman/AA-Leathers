@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — AA Leathers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="admin.html">Dashboard</a></li>
+    <li><a href="admin-inventory.html">Inventory</a></li>
+    <li><a href="admin-profile.html">Profile</a></li>
+    <li><a href="index.html">View Store</a></li>
+  </ul>
+  <div class="nav-right">
+    <span id="accountLabel" style="font-size:.62rem;letter-spacing:.1em;color:var(--muted)"></span>
+    <button class="nav-btn" onclick="doAdminLogout()">Logout</button>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div style="padding-top:80px">
+  <div class="page-header" style="padding-top:3rem">
+    <div class="sec-label">Admin Panel</div>
+    <h1>Dashboard</h1>
+    <p>Orders, payment verification, and delivery charges.</p>
+  </div>
+
+  <section class="home-section" style="padding-top:1rem">
+    <div class="admin-stats">
+      <div class="admin-stat"><div class="admin-stat-num" id="statProducts">0</div><div class="admin-stat-lbl">Products</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="statOrders">0</div><div class="admin-stat-lbl">Orders</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="statUsers">0</div><div class="admin-stat-lbl">Customers</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="statRevenue">0</div><div class="admin-stat-lbl">Revenue (PKR)</div></div>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="tabOrders" onclick="switchAdminTab('orders')">Orders &amp; Payments</button>
+      <button class="admin-tab" id="tabDelivery" onclick="switchAdminTab('delivery')">Delivery Charges</button>
+      <button class="admin-tab" id="tabCustomers" onclick="switchAdminTab('customers')">Customers</button>
+      <button class="admin-tab" id="tabReviews" onclick="switchAdminTab('reviews')">Reviews</button>
+    </div>
+
+    <div class="admin-section active" id="section-orders">
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Method</th><th>Payment</th><th>Status</th><th>Proof</th><th>Actions</th></tr></thead>
+          <tbody id="ordersTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="admin-section" id="section-delivery">
+      <p class="section-note">Set the delivery charge applied per region at checkout (FR-17).</p>
+      <div class="admin-form-grid" id="deliveryFormGrid" style="margin-bottom:1.5rem"></div>
+      <div class="admin-form-grid">
+        <div class="form-group"><label class="f-lbl">New Region Name</label><input class="f-inp" id="newRegionName" placeholder="e.g. Lahore"></div>
+        <div class="form-group"><label class="f-lbl">Charge (Rs.)</label><input class="f-inp" type="number" id="newRegionCharge" placeholder="e.g. 250"></div>
+      </div>
+      <button class="admin-form-btn" onclick="addDeliveryRegion()">Add Region</button>
+    </div>
+
+    <div class="admin-section" id="section-customers">
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Orders</th><th>Joined</th></tr></thead>
+          <tbody id="customersTbody"></tbody>
+        </table>
+      </div>
+
+      <div class="admin-section" id="section-reviews">
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Product</th><th>Customer</th><th>Rating</th><th>Review</th><th>Date</th><th></th></tr></thead>
+            <tbody id="reviewsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+  <div id="orderDetailModal" class="order-detail-modal" aria-hidden="true"></div>
+
+  <script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin-auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

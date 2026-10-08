@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory — AA Leathers Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="admin.html">Dashboard</a></li>
+    <li><a href="admin-inventory.html">Inventory</a></li>
+    <li><a href="admin-profile.html">Profile</a></li>
+    <li><a href="index.html">View Store</a></li>
+  </ul>
+  <div class="nav-right">
+    <span id="accountLabel" style="font-size:.62rem;letter-spacing:.1em;color:var(--muted)"></span>
+    <button class="nav-btn" onclick="doAdminLogout()">Logout</button>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div style="padding-top:80px">
+  <div class="page-header" style="padding-top:3rem">
+    <div class="sec-label">Admin Panel</div>
+    <h1>Inventory Manager</h1>
+    <p>Manage products, categories, variants, images and stock.</p>
+  </div>
+
+  <section class="home-section" style="padding-top:1rem">
+
+    <!-- Categories -->
+    <div class="co-section">
+      <div class="co-sec-lbl">Categories</div>
+      <div class="inline-actions" id="categoryChips" style="margin-bottom:1rem"></div>
+      <div style="display:flex;gap:.6rem;max-width:420px">
+        <input class="f-inp" id="newCategoryName" placeholder="New category name">
+        <button class="nav-btn solid" style="white-space:nowrap" onclick="addCategory()">Add</button>
+      </div>
+    </div>
+
+    <!-- Product Form -->
+    <div class="co-section">
+      <div class="co-sec-lbl" id="formTitle">Add New Product</div>
+      <input type="hidden" id="productId">
+      <div class="admin-form-grid" style="margin-bottom:1rem">
+        <div class="form-group"><label class="f-lbl">Product Name</label><input class="f-inp" id="productName" placeholder="e.g. Classic Leather Wallet"></div>
+        <div class="form-group"><label class="f-lbl">Article Number</label><input class="f-inp" id="productArticle" placeholder="e.g. AA107"></div>
+        <div class="form-group"><label class="f-lbl">Category</label><select class="co-select" id="productCategory"></select></div>
+        <div class="form-group"><label class="f-lbl">Price (Rs.)</label><input class="f-inp" type="number" id="productPrice" placeholder="e.g. 2500"></div>
+        <div class="form-group">
+          <label class="f-lbl">Active</label>
+          <select class="co-select" id="productActive"><option value="true">Active</option><option value="false">Deactivated</option></select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem">
+        <label class="f-lbl">Description</label>
+        <textarea class="f-inp" id="productDescription" placeholder="Short description"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:1.5rem">
+        <label class="f-lbl">Product Photos (optional — compressed &amp; stored locally)</label>
+        <input class="f-inp" type="file" id="productImages" accept="image/*" multiple>
+        <div class="inline-actions" id="imagePreviews" style="margin-top:.7rem"></div>
+      </div>
+
+      <div class="co-sec-lbl">Variants (Color / Size / Stock)</div>
+      <div class="admin-form-grid" style="grid-template-columns:1fr 1fr 1fr auto;margin-bottom:.8rem">
+        <div class="form-group"><input class="f-inp" id="variantColor" placeholder="Color e.g. Black"></div>
+        <div class="form-group"><input class="f-inp" id="variantSize" placeholder="Size e.g. Standard"></div>
+        <div class="form-group"><input class="f-inp" type="number" id="variantStock" placeholder="Stock e.g. 10"></div>
+        <div class="form-group"><button class="admin-form-btn" style="margin-top:0" onclick="addVariantRow()">Add Variant</button></div>
+      </div>
+      <div class="table-wrap" style="margin-bottom:1.5rem">
+        <table class="admin-table">
+          <thead><tr><th>Color</th><th>Size</th><th>Stock</th><th>Variant Image</th><th></th></tr></thead>
+          <tbody id="variantsTbody"></tbody>
+        </table>
+      </div>
+
+      <div class="inline-actions">
+        <button class="admin-form-btn" onclick="saveProduct()">Save Product</button>
+        <button class="admin-form-btn" style="background:transparent;border:1px solid rgba(201,168,76,0.3);color:var(--gold)" onclick="resetProductForm()">Clear Form</button>
+      </div>
+    </div>
+
+    <!-- Inventory Table -->
+    <div class="co-section">
+      <div class="co-sec-lbl">All Products</div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Total Stock</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="inventoryTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin-auth.js"></script>
+<script src="js/inventory.js"></script>
+</body>
+</html>

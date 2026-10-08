@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — AA Leathers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="account-menu" id="accountMenu">
+      <button class="nav-user" id="accountToggle"><span id="accountLabel">Account</span> <span class="nav-user-label">▾</span></button>
+      <div class="account-dropdown" id="accountDropdown">
+        <a href="login.html">Login / Sign Up</a>
+        <a href="user-profile.html">My Account</a>
+      </div>
+    </div>
+    <a href="cart.html" class="nav-cart">🛍 Cart <span class="cart-badge" data-cart-count>0</span></a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div style="padding-top:80px">
+
+  <!-- ═══ SHOP VIEW ═══ -->
+  <div id="shopView">
+    <div class="shop-hero">
+      <div class="sec-label" style="justify-content:center;display:flex">Collection</div>
+      <h1 class="shop-title">All Wallets</h1>
+      <div class="shop-filters" id="categoryFilters"></div>
+      <div style="max-width:420px;margin:0 auto">
+        <input type="text" id="searchInput" class="f-inp" placeholder="Search by name or article number...">
+      </div>
+    </div>
+    <div class="shop-sort">
+      <label for="sortSelect">Sort by</label>
+      <select id="sortSelect" class="sort-select">
+        <option value="default">Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name-asc">Name: A–Z</option>
+      </select>
+    </div>
+    <div class="shop-grid" id="shopGrid"></div>
+  </div>
+
+  <!-- ═══ PRODUCT DETAIL VIEW ═══ -->
+  <div id="detailView" style="display:none">
+    <button class="pd-back" onclick="showShop()">← Back to Shop</button>
+    <div class="pd-layout">
+      <div class="pd-viewer">
+        <div class="pd-viewer-static" id="pdIcon">👛</div>
+      <div class="pd-gallery-controls" id="pdGalleryControls"></div>
+    </div>
+      <div class="pd-info">
+        <div class="pd-label" id="pdCategory">Category</div>
+        <h1 class="pd-name" id="pdName">Product Name</h1>
+        <div class="pd-tagline" id="pdArticle">Article No: —</div>
+        <div class="pd-price-row"><div class="pd-price" id="pdPrice">Rs. 0</div></div>
+        <div class="pd-instock" id="pdStock">In Stock</div>
+        <p style="font-size:.78rem;color:var(--muted);line-height:1.9" id="pdDescription"></p>
+
+        <div class="pd-sec-title">Color</div>
+        <div class="pd-colors" id="pdColors"></div>
+
+        <div class="pd-sec-title">Size</div>
+        <select class="co-select" id="pdSize" style="max-width:220px"></select>
+
+        <div class="pd-sec-title">Quantity</div>
+        <div class="pd-qty-row">
+          <button class="qty-btn" onclick="pdChangeQty(-1)">−</button>
+          <div class="qty-val" id="pdQty">1</div>
+          <button class="qty-btn" onclick="pdChangeQty(1)">+</button>
+        </div>
+
+        <button class="pd-add-btn" onclick="pdAddToCart()">Add to Cart</button>
+        <button class="pd-wish-btn" onclick="pdAddToWishlist()">♡ Add to Wishlist</button>
+
+        <div class="pd-sec-title">Reviews &amp; Ratings</div>
+        <div id="pdReviews"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+      <p>Premium leather wallets, crafted for everyday carry. Based in Sahiwal, Pakistan.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul>
+      <li><a href="products.html">All Wallets</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Account</h4><ul>
+      <li><a href="login.html">Login / Sign Up</a></li>
+      <li><a href="user-profile.html">Track Order</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 <span>AA Leathers</span>. All rights reserved.</div>
+    <div class="footer-copy">Cash on Delivery · JazzCash · Easypaisa</div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/catalog.js"></script>
+</body>
+</html>

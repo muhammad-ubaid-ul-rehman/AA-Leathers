@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Sign Up — AA Leathers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">AA<span> Leathers</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="cart.html" class="nav-cart">🛍 Cart <span class="cart-badge" data-cart-count>0</span></a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="auth-wrap" style="padding-top:80px">
+  <div class="auth-card">
+    <div class="auth-logo">AA<span> Leathers</span></div>
+    <div class="auth-tagline">Login or create an account</div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+
+    <div class="auth-section active" id="loginSection">
+      <div class="f-grp"><label class="f-lbl">Email</label><input class="f-inp" type="email" id="loginId" placeholder="you@email.com"></div>
+      <div class="f-grp"><label class="f-lbl">Password</label><input class="f-inp" type="password" id="loginPassword" placeholder="••••••••"><div class="password-actions"><button type="button" class="show-password-btn" onclick="togglePassword('loginPassword', this)">Show password</button><button type="button" class="forgot-password-btn" onclick="showForgotPasswordMessage()">Forgot password?</button></div></div>
+      <div class="f-err" id="loginError"></div>
+      <button class="f-btn" onclick="doLogin()">Login</button>
+      <div class="f-divider">or</div>
+      <button class="f-demo" onclick="location.href='products.html'">Continue as Guest</button>
+    </div>
+
+    <div class="auth-section" id="signupSection">
+      <div class="f-grp"><label class="f-lbl">Full Name</label><input class="f-inp" id="suName" placeholder="Your name"></div>
+      <div class="f-grp"><label class="f-lbl">Email</label><input class="f-inp" type="email" id="suEmail" placeholder="you@email.com"></div>
+      <div class="f-grp"><label class="f-lbl">Password</label><input class="f-inp" type="password" id="suPassword" placeholder="••••••••"><div class="password-actions"><button type="button" class="show-password-btn" onclick="togglePassword('suPassword', this)">Show password</button></div></div>
+      <div class="f-grp"><label class="f-lbl">Confirm Password</label><input class="f-inp" type="password" id="suConfirmPassword" placeholder="••••••••"><div class="password-actions"><button type="button" class="show-password-btn" onclick="togglePassword('suConfirmPassword', this)">Show password</button></div></div>
+      <div class="f-err" id="signupError"></div>
+      <button class="f-btn" onclick="doSignup()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
